@@ -26,6 +26,13 @@ jobs:
           git clone https://github.com/gmanka-flatpaks/com.openai.codex
           git clone https://github.com/flatpak/flatpak-builder-tools
       - uses: docker://docker.io/library/rust:latest
+        env:
+          CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+          GIT_CONFIG_COUNT: "2"
+          GIT_CONFIG_KEY_0: 'url.https://github.com/.insteadOf'
+          GIT_CONFIG_VALUE_0: 'ssh://git@github.com/'
+          GIT_CONFIG_KEY_1: 'url.https://github.com/.insteadOf'
+          GIT_CONFIG_VALUE_1: 'git@github.com:'
         with:
           entrypoint: cargo
           args: update --manifest-path sources/codex-rs/Cargo.toml
